@@ -1,0 +1,27 @@
+{
+  "name": "imgtotiny",
+  "version": "0.0.1",
+  "description": "一个前端图片压缩插件，并针对png图片优化压缩算法",
+  "type": "module",
+  "main": "./lib/index.esm.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "dev": "rollup -c -w",
+    "build": "rollup -c",
+    "preinstall": "npx only-allow pnpm"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.1",
+    "@rollup/plugin-typescript": "^11.1.0",
+    "rollup": "^3.20.2",
+    "tslib": "^2.5.0",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "pako": "^2.1.0",
+    "uzip": "^0.20201231.0"
+  }
+}
