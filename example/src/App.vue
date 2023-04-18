@@ -10,13 +10,16 @@ const after = reactive({
   size: 0
 })
 const changeFile = async e => {
-  console.log(e.target.files[0])
+  console.log('压缩前的文件===', e.target.files[0])
+
   const file = e.target.files[0] as File
   before.path = (await fileToBase64(file)) as string
   before.size = file.size
-  const newFile = (await imgToTiny(file, { quality: 0.3 })) as File
+
+  const newFile = (await imgToTiny(file, { quality: 0.3, allKeepType: false })) as File
   after.path = (await fileToBase64(newFile)) as string
   after.size = newFile.size
+
   console.log('压缩后的文件===', newFile)
 }
 </script>

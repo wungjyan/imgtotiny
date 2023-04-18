@@ -38,10 +38,16 @@ const changeFile = async e => {
 
 ## 说明
 
-本插件压缩图片时，默认支持原图片类型输出的有 `image/jpeg`，`image/webp` 和 `image/png`，其他类型的图片会转换成 `jpg` 格式再压缩输出。
+本插件压缩图片时，默认支持原图片类型输出的有 `image/jpeg`，`image/webp` 和 `image/png`。而 `svg` 图片会转成 `png` 格式再压缩输出，剩下其他类型的图片会转换成 `jpg` 格式再压缩输出。
 
 这是因为除了 png 图片之外，别的图片压缩都是利用到 canvas 的 [toBlob](https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLCanvasElement/toBlob) 方法，它的 `quality` 参数主要支持 `image/jpeg` 和 `image/webp`，当传入其他格式的图片时，是可以压缩的，但是这个 `quality` 参数就失去了控制，变成默认的压缩。
 
-如果你仍然想保持原类型输出，可以设置 `allKeepType: true`。
+如果你仍然想保持原类型输出，可以设置 `allKeepType: true`，但不能保证结果，例如 `svg` 图片原类型压缩后就无法显示。
 
 而对于 png 图片，是利用 [UPNG.js](https://github.com/photopea/UPNG.js) 进行有损压缩的，可以保持原类型输出。
+
+`svg` 是无损压缩的矢量图，插件不能直接压缩，需要转换成 `png` 格式再压缩，之所以不是转换成 `jpg` 是因为转成 `jpg` 后，图片底色会变黑。
+
+## 注意
+
+如果不是特殊场景，建议设置 `allKeepType:false`，这样可以保证大部分图片正常显示。

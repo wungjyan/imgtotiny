@@ -9,14 +9,14 @@ import {
   isRange
 } from './utils'
 
-export interface fnOptions {
+export interface Options {
   quality?: number
   minSize?: number
   returnBase64?: boolean
   allKeepType?: boolean
 }
 
-async function imgToTiny(imgFile: File, options?: fnOptions): Promise<File | string> {
+async function imgToTiny(imgFile: File, options?: Options): Promise<File | string | HTMLElement> {
   let file
   if (isImageFile(imgFile)) {
     file = imgFile
@@ -26,12 +26,18 @@ async function imgToTiny(imgFile: File, options?: fnOptions): Promise<File | str
 
   let opts = options && isObject(options) ? options : {}
 
-  if (opts.minSize && opts.minSize > 0 && imgFile.size < opts.minSize) {
+  if (opts.minSize && opts.minSize > 0 && file.size < opts.minSize) {
     return file
   }
 
-  if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type) && !opts.allKeepType) {
+  if (!['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'].includes(file.type) && !opts.allKeepType) {
     const _convertImg = await convertImgType(file, 'jpg')
+    if (_convertImg !== null) {
+      file = _convertImg
+    }
+  }
+  if (file.type === 'image/svg+xml' && !opts.allKeepType) {
+    const _convertImg = await convertImgType(file, 'png')
     if (_convertImg !== null) {
       file = _convertImg
     }
