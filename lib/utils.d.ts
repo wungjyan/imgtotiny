@@ -5,6 +5,18 @@
  */
 export declare function isImageFile(file: File): boolean;
 /**
+ * 判断值是否是对象类型
+ * @param obj 要判断的值
+ * @returns
+ */
+export declare function isObject(obj: unknown): boolean;
+/**
+ * 判断压缩质量数值是否在范围 0-1 内
+ * @param num
+ * @returns
+ */
+export declare function isRange(num: any): boolean;
+/**
  * 将图片文件转换成 base64 字符串
  * @param {File} file 图片文件
  * @returns

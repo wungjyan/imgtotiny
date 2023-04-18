@@ -1,13 +1,46 @@
 <script setup lang="ts">
-import imgToTiny from 'imgtotiny'
+import imgToTiny, { fileToBase64 } from 'imgtotiny'
+import { reactive } from 'vue'
+const before = reactive({
+  path: '',
+  size: 0
+})
+const after = reactive({
+  path: '',
+  size: 0
+})
 const changeFile = async e => {
   console.log(e.target.files[0])
   const file = e.target.files[0] as File
-  const resFile = await imgToTiny(file, { returnBase64: false, quality: 0.6, minSize: 300 * 1024 })
-  console.log('压缩后的文件===', resFile)
+  before.path = (await fileToBase64(file)) as string
+  before.size = file.size
+  const newFile = (await imgToTiny(file, { quality: 0.3 })) as File
+  after.path = (await fileToBase64(newFile)) as string
+  after.size = newFile.size
+  console.log('压缩后的文件===', newFile)
 }
 </script>
 
 <template>
   <input type="file" @change="changeFile" />
+
+  <div>
+    <h2>压缩之前的：</h2>
+    <img class="img" :src="before.path" alt="" />
+    <p>大小：{{ before.size }}</p>
+  </div>
+
+  <div>
+    <h2>压缩之后的：</h2>
+    <img class="img" :src="after.path" alt="" />
+    <p>大小：{{ after.size }}</p>
+  </div>
 </template>
+
+<style>
+.img {
+  display: block;
+  max-width: 300px;
+  max-height: 300px;
+}
+</style>

@@ -4,14 +4,14 @@ export default {
   input: 'src/index.ts',
   output: [
     {
-      file: 'lib/index.esm.js',
+      file: 'lib/index.js',
       format: 'es'
-    },
-    {
-      file: 'lib/index.global.js',
-      format: 'iife',
-      name: 'ImgToTiny'
     }
+    // {
+    //   file: 'lib/index.global.js',
+    //   format: 'iife',
+    //   name: 'ImgToTiny'
+    // }
   ],
   plugins: [typescript(), terser()]
 }

@@ -16,13 +16,32 @@ export function isImageFile(file: File) {
 }
 
 /**
+ * 判断值是否是对象类型
+ * @param obj 要判断的值
+ * @returns
+ */
+export function isObject(obj: unknown): boolean {
+  return obj !== null && typeof obj === 'object'
+}
+
+/**
+ * 判断压缩质量数值是否在范围 0-1 内
+ * @param num
+ * @returns
+ */
+export function isRange(num: any): boolean {
+  if (num === 0 || num === 1) {
+    return true
+  }
+  return num && typeof num === 'number' && num > 0 && num < 1
+}
+
+/**
  * 将图片文件转换成 base64 字符串
  * @param {File} file 图片文件
  * @returns
  */
 export function fileToBase64(file: File): Promise<string | null> {
-  isImageFile(file)
-
   return new Promise(resolve => {
     const reader = new FileReader()
     reader.readAsDataURL(file)
@@ -111,13 +130,11 @@ export function compressPng(
   name: string
 ): File | null {
   const imageData = context.getImageData(0, 0, img.width, img.height).data
-  console.log('imageData===', imageData)
   let cnum = 0
   if (quality > 0 && quality < 1) {
     cnum = quality * 256
   }
   const pngImg = UPNG.encode([imageData.buffer], img.width, img.height, cnum)
-  console.log('pngImg===', pngImg)
   if (pngImg) {
     return new File([pngImg], name, { type: 'image/png' })
   }
