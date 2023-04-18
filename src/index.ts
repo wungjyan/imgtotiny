@@ -14,6 +14,8 @@ export interface Options {
   minSize?: number
   returnBase64?: boolean
   allKeepType?: boolean
+  width?: number
+  height?: number
 }
 
 async function imgToTiny(imgFile: File, options?: Options): Promise<File | string> {
@@ -26,7 +28,7 @@ async function imgToTiny(imgFile: File, options?: Options): Promise<File | strin
 
   let opts = options && isObject(options) ? options : {}
 
-  if (opts.minSize && opts.minSize > 0 && file.size < opts.minSize) {
+  if (opts.minSize && opts.minSize > 0 && file.size < opts.minSize && !opts.width && !opts.height) {
     return file
   }
 
@@ -52,10 +54,23 @@ async function imgToTiny(imgFile: File, options?: Options): Promise<File | strin
   const canvas = document.createElement('canvas')
   const context = canvas.getContext('2d') as CanvasRenderingContext2D
 
-  canvas.width = img.width
-  canvas.height = img.height
+  if (opts.width && opts.height) {
+    canvas.width = opts.width
+    canvas.height = opts.height
+  } else if (opts.width && !opts.height) {
+    canvas.width = opts.width
+    const ratio = img.width / img.height
+    canvas.height = Math.floor(opts.width / ratio)
+  } else if (!opts.width && opts.height) {
+    canvas.height = opts.height
+    const ratio = img.width / img.height
+    canvas.width = Math.floor(opts.height * ratio)
+  } else {
+    canvas.width = img.width
+    canvas.height = img.height
+  }
 
-  context.drawImage(img, 0, 0, img.width, img.height)
+  context.drawImage(img, 0, 0, canvas.width, canvas.height)
 
   let newFile
   let q = isRange(opts.quality) ? opts.quality : 0.6

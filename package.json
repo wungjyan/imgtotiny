@@ -1,6 +1,6 @@
 {
   "name": "imgtotiny",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "一个通用前端图片压缩插件，并可对 PNG 图片进行有损压缩",
   "type": "module",
   "main": "./lib/index.js",

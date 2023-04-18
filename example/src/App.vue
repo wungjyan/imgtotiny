@@ -16,7 +16,7 @@ const changeFile = async e => {
   before.path = (await fileToBase64(file)) as string
   before.size = file.size
 
-  const newFile = (await imgToTiny(file, { quality: 0.3, allKeepType: false })) as File
+  const newFile = (await imgToTiny(file, { quality: 0.5, height: 300, minSize: 5 * 1024 * 1024 })) as File
   after.path = (await fileToBase64(newFile)) as string
   after.size = newFile.size
 
@@ -43,7 +43,5 @@ const changeFile = async e => {
 <style>
 .img {
   display: block;
-  max-width: 300px;
-  max-height: 300px;
 }
 </style>

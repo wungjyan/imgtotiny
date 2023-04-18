@@ -33,6 +33,8 @@ const changeFile = async e => {
 | :----------- | ------- | -------- | ------ | :-------------------------------------------------------- |
 | quality      | number  | 否       | 0.6    | 压缩质量，范围 0-1 之间，值越小压缩率更高                 |
 | minSize      | number  | 否       | -      | 最小尺寸，单位字节（b），当传入图片尺寸小于这个值时不压缩 |
+| width        | number  | 否       | -      | 输出图片的宽度，此时高度等比例计算，minSize 无效          |
+| height       | number  | 否       | -      | 输出图片的高度，此时宽度等比例计算，minSize 无效          |
 | returnBase64 | boolean | 否       | false  | 设置为 true 时，直接返回 base64 字符串                    |
 | allKeepType  | boolean | 否       | false  | 当设置为 true 时，所有图片保持原类型输出，详见说明        |
 
@@ -51,3 +53,9 @@ const changeFile = async e => {
 ## 注意
 
 如果不是特殊场景，建议设置 `allKeepType:false`，这样可以保证大部分图片正常显示。
+
+当设置 `width` 或者 `height` 时，`minSize` 失效，因为裁切本身就会降低图片质量，此时可以适当提高 `quality` 的值，如 `0.9`。
+
+## 更新
+
+- `0.1.0`：添加等比例缩放裁切功能
