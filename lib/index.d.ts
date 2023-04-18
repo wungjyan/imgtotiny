@@ -5,6 +5,6 @@ export interface Options {
     returnBase64?: boolean;
     allKeepType?: boolean;
 }
-declare function imgToTiny(imgFile: File, options?: Options): Promise<File | string | HTMLElement>;
+declare function imgToTiny(imgFile: File, options?: Options): Promise<File | string>;
 export { fileToBase64 };
 export default imgToTiny;

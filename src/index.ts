@@ -16,7 +16,7 @@ export interface Options {
   allKeepType?: boolean
 }
 
-async function imgToTiny(imgFile: File, options?: Options): Promise<File | string | HTMLElement> {
+async function imgToTiny(imgFile: File, options?: Options): Promise<File | string> {
   let file
   if (isImageFile(imgFile)) {
     file = imgFile

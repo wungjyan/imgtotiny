@@ -1,7 +1,7 @@
 {
   "name": "imgtotiny",
-  "version": "0.0.1",
-  "description": "一个前端图片压缩插件，可对 PNG 图片进行有损压缩",
+  "version": "0.0.2",
+  "description": "一个通用前端图片压缩插件，并可对 PNG 图片进行有损压缩",
   "type": "module",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -25,6 +25,12 @@
   },
   "author": "wungjyan <1170017412@qq.com>",
   "license": "MIT",
+  "files": [
+    "lib",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.1",
     "@rollup/plugin-typescript": "^11.1.0",
