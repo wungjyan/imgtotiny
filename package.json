@@ -1,7 +1,7 @@
 {
   "name": "imgtotiny",
   "version": "0.0.1",
-  "description": "一个前端图片压缩插件，并针对png图片优化压缩算法",
+  "description": "一个前端图片压缩插件，可对png图片有损压缩",
   "type": "module",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -10,9 +10,21 @@
     "build": "rollup -c",
     "preinstall": "npx only-allow pnpm"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "imageCompress",
+    "image",
+    "compress",
+    "web-compress-plugin",
+    "canvas",
+    "UPNG",
+    "图片压缩"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wungjyan/imgtotiny.git"
+  },
+  "author": "wungjyan <1170017412@qq.com>",
+  "license": "MIT",
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.1",
     "@rollup/plugin-typescript": "^11.1.0",
